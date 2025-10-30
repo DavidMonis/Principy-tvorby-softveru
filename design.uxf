@@ -1,0 +1,210 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>Space for diagram notes
+</help_text><element><id>UMLClass</id><coordinates><x>680</x><y>40</y><w>480</w><h>210</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
+TerraFuturaInterface
+bg=red
+--
+takeCard(playerId: int, source: CardSource, destination: GridPosition): bool
+discardLastCardFromDeck(playerId: int, deck: Deck): bool
+activateCard(playerId: int, card: GridCoordinate, 
+    inputs: List[Pair[Resource, GridPosition]],
+    outputs: List[Pair[Resource, GridPosition]],
+    pollution: List[GridPosition],
+    otherPlayerId: Optional[int], otherCard: Optional[GridPosition])
+selectReward(playerId: int, resource: Resource)
+turnFinished(playerId: int):bool
+selectActivationPattern(playerId: int, card: int): bool
+selectScoring(playerId: int, card: int):bool
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1150</x><y>140</y><w>180</w><h>30</h></coordinates><panel_attributes>lt=(+)-</panel_attributes><additional_attributes>10;10;160;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1340</x><y>20</y><w>90</w><h>70</h></coordinates><panel_attributes>&lt;&lt;Datatype&gt;&gt;
+CardSource
+--
+deck: Deck
+index: int
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1540</x><y>10</y><w>100</w><h>70</h></coordinates><panel_attributes>&lt;&lt;Enumeration&gt;&gt;
+Deck
+--
+I
+II</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1330</x><y>140</y><w>160</w><h>120</h></coordinates><panel_attributes>&lt;&lt;Enumeration&gt;&gt;
+GridPosition
+--
+x: int
+y: int
+--
+{x and y are from -2 to +2. 
+Coordinate (0,0) 
+indicates the starting card}</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1550</x><y>110</y><w>100</w><h>170</h></coordinates><panel_attributes>&lt;&lt;Enumeration&gt;&gt;
+Resource
+--
+Green
+Red
+Yellow
+Bulb
+Gear
+Car
+Money
+Polution
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>290</x><y>60</y><w>240</w><h>120</h></coordinates><panel_attributes>Component handling logic 
+of Terra Futura board game.
+Simplified rules, no Assistance 
+card effect .
+Also, no need to support observers
+created after the component is created.</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1310</x><y>0</y><w>380</w><h>290</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>360</y><w>190</w><h>70</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
+TerraFuturaObserverInterface
+--
+notify(gameState: string)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>240</y><w>30</w><h>210</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;190</additional_attributes></element><element><id>Relation</id><coordinates><x>180</x><y>370</y><w>180</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;20;160;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>270</x><y>290</y><w>1220</w><h>1350</h></coordinates><panel_attributes>symbol=component
+TerraFuturaComponent</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>430</y><w>180</w><h>170</h></coordinates><panel_attributes>Game
+bg=orange
+--
+state:GameState
+players: int[]
+-onTurn
+-startingPlayer
+-turnNumber
+
+--
+Implements state transitions.
+Puts state together
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>810</x><y>950</y><w>340</w><h>150</h></coordinates><panel_attributes>Grid
+bg=red
+-
+getCard(coordinate: GridPosition): Optional[Card]
+canPutCard(coordinate: GridPosition): bool
+putCard(coordinate: GridPosition, card: Card)
+canBeActivated(coordinate: GridPosition): bool
+setActivated(coordinate: GridPosition)
+setActivationPattern(pattern: List[GridPosition])
+endTurn()
+state()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>320</x><y>830</y><w>170</w><h>150</h></coordinates><panel_attributes>&lt;&lt;Enumeration&gt;&gt;
+GameState
+--
+TakeCardNoCardDiscarded
+TakeCardCardDiscarded
+ActivateCard
+SelectReward
+SelectActivationPattern
+SelectScoringMethod
+Finish
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>690</x><y>1140</y><w>470</w><h>180</h></coordinates><panel_attributes>Card
+bg=blue
+--
+resources:Resource[]
+pollutionSpacesL int
+--
+canGetResources(resources: List[Resource]): bool
+getResources(resources: List[Resource])
+canPutResources(resources: List[Resource]): bool
+putResources(resources: List[Resource])
+check(input: List[Resource], output: List[Resource], polution:int): bool
+checkLower(input: List[Resource], output: List[Resource], polution:int): bool
+hasAssistance():bool
+state(): string</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>910</x><y>1090</y><w>50</w><h>70</h></coordinates><panel_attributes>lt=&lt;-
+m1=1..9</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>610</x><y>680</y><w>210</w><h>90</h></coordinates><panel_attributes>Pile
+bg=red
+--
+getCard(index: int): Optional[Card]
+takeCard(index: int)
+removeLastCard()
+state(): string
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>690</x><y>590</y><w>170</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=2
+</panel_attributes><additional_attributes>150;10;150;40;10;40;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>690</x><y>760</y><w>100</w><h>400</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;
+m1=4
+r1=visibleCards</panel_attributes><additional_attributes>10;380;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>760</y><w>100</w><h>400</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;
+m1=*
+r1=hiddenCards</panel_attributes><additional_attributes>10;380;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>1310</y><w>90</w><h>80</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..1
+r1=upperEffect</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>940</x><y>1310</y><w>90</w><h>80</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..1
+r1=lowerEffect</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>710</x><y>1370</y><w>420</w><h>110</h></coordinates><panel_attributes>&lt;&lt;Inerface&gt;&gt;
+Effect
+bg=blue
+--
+check(input: List[Resource], output: List[Resource], pollution:int): bool
+hasAssistance():bool
+state(): string
+--
+Requires integration tests.</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>410</x><y>1550</y><w>180</w><h>70</h></coordinates><panel_attributes>TransformationFixed
+bg=blue
+--
+from: List[Resource]
+to: List[Resource]
+polution: int
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1150</x><y>1550</y><w>100</w><h>30</h></coordinates><panel_attributes>EfectOr
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>350</y><w>310</w><h>90</h></coordinates><panel_attributes>ProcessAction
+bg=blue
+--
+activateCard(card: Card, grid: Grid,
+    inputs: List[Pair[Resource, GridPosition]],
+    outputs: List[Pair[Resource, GridPosition]],
+    pollution: List[GridPosition]): bool
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>590</y><w>330</w><h>120</h></coordinates><panel_attributes>SelectReward
+bg=red
+--
+player: Optional[int]
+selelction: List[Resource]
+--
+setReward(player: int,  card: Card, reward: Resource[])
+canSelectReward(resource: Resource): bool
+selectReward(resource: Resource)
+state(): string
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>460</y><w>310</w><h>100</h></coordinates><panel_attributes>ProcessActionAssistance
+bg=blue
+--
+activateCard(card: Card, grid: Grid,
+    assisingPlayer: int, assisingCard: Card,
+    inputs: List[Pair[Resource, GridPosition]],
+    outputs: List[Pair[Resource, GridPosition]],
+    pollution: List[GridPosition]): bool
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1150</x><y>550</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>970</x><y>500</y><w>120</w><h>170</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>100;150;70;150;70;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1030</x><y>350</y><w>60</w><h>180</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10;10;160</additional_attributes></element><element><id>Relation</id><coordinates><x>1030</x><y>470</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>860</x><y>700</y><w>100</w><h>40</h></coordinates><panel_attributes>&lt;&lt;Datatype&gt;&gt;
+Player</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>960</x><y>840</y><w>200</w><h>90</h></coordinates><panel_attributes>ActivationPattern
+bg=green
+--
+pattern: List[GridPosition]
+selected: bool
+--
+select()
+state(): string</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>720</y><w>240</w><h>110</h></coordinates><panel_attributes>ScoringMethod
+bg=blue
+--
+resources: List[Resource]
+pointsPerCombination: Points
+calculatedTotal: Optional[Points]
+--
+selectThisMethodAndCalculate()
+state(): string</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1140</x><y>820</y><w>70</w><h>210</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;190;50;190;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>890</x><y>590</y><w>50</w><h>130</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
+m1=2..4</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>890</x><y>730</y><w>40</w><h>240</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
+m1=1</panel_attributes><additional_attributes>10;220;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>910</x><y>730</y><w>70</w><h>200</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
+m1=2</panel_attributes><additional_attributes>50;170;10;170;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>730</y><w>160</w><h>90</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
+m1=2</panel_attributes><additional_attributes>140;60;10;60;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>320</x><y>1010</y><w>100</w><h>40</h></coordinates><panel_attributes>&lt;&lt;Datatype&gt;&gt;
+Points</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>460</x><y>470</y><w>290</w><h>70</h></coordinates><panel_attributes>MoveCard
+bg=blue
+--
+moveCard(pile: Pile, 
+    gridCoordinate: GridPosition, 
+    grid: Grid): bool</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>740</x><y>470</y><w>80</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;60;10</additional_attributes></element><element><id>Relation</id><coordinates><x>320</x><y>480</y><w>310</w><h>240</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>290;220;10;220;10;10;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>530</y><w>270</w><h>510</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>250;490;10;490;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1140</x><y>350</y><w>350</w><h>700</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;680;300;680;300;10;240;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1370</x><y>470</y><w>90</w><h>30</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>70;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1150</x><y>380</y><w>290</w><h>900</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..1</panel_attributes><additional_attributes>10;870;270;870;270;10;230;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>1470</y><w>390</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>370;10;370;40;10;40;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1120</x><y>1420</y><w>150</w><h>150</h></coordinates><panel_attributes>lt=&lt;-
+2..*</panel_attributes><additional_attributes>10;10;110;10;110;130</additional_attributes></element><element><id>Relation</id><coordinates><x>880</x><y>1500</y><w>350</w><h>70</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>330;50;330;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1370</x><y>490</y><w>70</w><h>30</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>50;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>920</y><w>30</w><h>50</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;30;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>360</y><w>240</w><h>100</h></coordinates><panel_attributes>GameObserver
+bg=blue
+--
+observers: Map[int, ObserverInterface]
+--
+notifyAll(newState: Map[int, string])
+{Everybody sees what he has to}</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>380</y><w>300</w><h>70</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;280;10;280;50</additional_attributes></element><element><id>Relation</id><coordinates><x>1390</x><y>600</y><w>50</w><h>30</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>30;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>1550</y><w>190</w><h>50</h></coordinates><panel_attributes>...
+bg=blue
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>880</x><y>1500</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>1550</y><w>130</w><h>80</h></coordinates><panel_attributes>ArbitraryBasic
+bg=blue
+--
+froum: int
+to: List[Resource]
+polution: int
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>680</x><y>1500</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element></diagram>
