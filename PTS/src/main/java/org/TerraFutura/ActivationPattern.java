@@ -12,29 +12,30 @@ import org.json.JSONArray;
 public final class ActivationPattern {
     private ArrayList<SimpleEntry<Integer, Integer>> pattern;
     private boolean selected;
-    private InterfaceActivateGrid grid;
+    //private InterfaceActivateGrid grid;
 
-    public ActivationPattern(final InterfaceActivateGrid grid, final Collection<SimpleEntry<Integer, Integer>> pattern) {
-        this.grid = grid;
+    //player holds the activationPattern, then we assign the pattern to the players grid
+    public ActivationPattern(final Collection<SimpleEntry<Integer, Integer>> pattern) {
+        //this.grid = grid;
         this.pattern = new ArrayList<>(pattern);  // copy the pattern
         this.selected = false;
     }
 
-    public void select() {
-        if (this.selected) {
-            throw new IllegalStateException("Pattern already selected");
-        }
-        this.grid.setActivationPattern(this.pattern);
-        this.selected = true;
-    }
+//    public void select() {
+//        if (this.selected) {
+//            throw new IllegalStateException("Pattern already selected");
+//        }
+//        this.grid.setActivationPattern(this.pattern);
+//        this.selected = true;
+//    }
 
     public ArrayList<SimpleEntry<Integer, Integer>> getPattern() {
         return this.pattern;
     }
 
-    public boolean isSelected() {
-        return this.selected;
-    }
+//    public boolean isSelected() {
+//        return this.selected;
+//    }
 
 
     public String state() {

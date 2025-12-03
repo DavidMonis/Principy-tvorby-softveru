@@ -272,7 +272,7 @@ public class Game implements TerraFuturaInterface {
             return false;
         }
 
-        //set the activation pattern in the grid too, so grid.canBeActivated works in this state too
+        //assign the activation pattern to the grid too, so grid.canBeActivated works in this state too
         players[playerId].getGrid().setActivationPattern(players[playerId].getActivationPattern().getPattern());
 
         return true;
